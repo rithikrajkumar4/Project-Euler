@@ -1,0 +1,38 @@
+  const ones = ["", "one", "two", "three", "four",
+    "five", "six", "seven", "eight",
+    "nine", "ten", "eleven", "twelve",
+    "thirteen", "fourteen", "fifteen",
+    "sixteen", "seventeen", "eighteen",
+    "nineteen"];
+  const tens = ["", "", "twenty", "thirty", "forty",
+    "fifty", "sixty", "seventy", "eighty",
+    "ninety"];
+
+  const extra = ["hundred", "thousand"];
+
+  let arr = [];
+  for (let i = 1; i < 1000; i++) {
+    if (i < 20) {
+      arr.push(ones[i])
+    }
+    else if (i < 100) {
+      let k = i.toString()
+      arr.push(`${tens[k[0]]}-${ones[k[1]]}`)
+    }
+    else if (i < 1000) {
+      let k = i.toString();
+      if (i % 100 < 20) {
+        arr.push(`${ones[k[0]]}-${extra[0]}${ones[i % 100] != "" ? `-and-${ones[i % 100]}` : ``}`)
+      }
+      else {
+        arr.push(`${ones[k[0]]}-${extra[0]}${k[1] || k[2] ? "-and-" : "-"}${!k[2] ? `${tens[k[1]]}` : `${tens[k[1]]}-${ones[k[2]]}`}`)
+      }
+    }
+  }
+  let total = 0;
+  for (let i = 0; i < 1000; i++) {
+    let k = arr[i].split('-')
+    for (let j = 0; j < k.length; j++) {
+      total += k[j].length;
+    }
+  }
